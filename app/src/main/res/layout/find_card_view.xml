@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="140dp"
+    android:background="#499b9596"
+    android:id="@+id/rent_click"
     android:layout_marginLeft="5dp"
+    android:layout_marginBottom="10dp"
     android:layout_marginRight="5dp">
 
     <ImageView
