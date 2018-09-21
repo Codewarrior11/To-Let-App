@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "172773368046",
+    "firebase_url": "https://tolet-app.firebaseio.com",
+    "project_id": "tolet-app",
+    "storage_bucket": "tolet-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172773368046:android:b9b160ca960f78ee",
+        "android_client_info": {
+          "package_name": "com.infinity.tolet.appel.to_let"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172773368046-4vcif13bc76pdaen7qu4uvqtmdj18i6g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.infinity.tolet.appel.to_let",
+            "certificate_hash": "fcc9945b942a7645200c2957fb59cbc735aa7218"
+          }
+        },
+        {
+          "client_id": "172773368046-fj021rnd9nm13dr6simhsraca9iv9nud.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq3R-Q4PFWl0v1uJlK6jYTe3ACMoaX-NA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172773368046-fj021rnd9nm13dr6simhsraca9iv9nud.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
