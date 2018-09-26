@@ -7,15 +7,24 @@ public class item {
     String type;
     String address;
     String month;
+    String postId;
     int price;
 
-    public item(int pro_pic, String name, String type, String address, String month, int price) {
+    public item(String postId, int pro_pic, String name, String type, String address, String month, int price) {
         this.pro_pic = pro_pic;
         this.name = name;
         this.type = type;
         this.address = address;
         this.month = month;
         this.price = price;
+        this.postId=postId;
+    }
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 
     public int getPro_pic() {

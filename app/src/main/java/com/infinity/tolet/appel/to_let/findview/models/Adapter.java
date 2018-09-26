@@ -80,7 +80,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
                 @Override
                 public void onClick(View view) {
                     int pos=getAdapterPosition();
-                    Toast.makeText(mContext,"Position: "+itemList.get(pos).getName(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext,"Position: "+itemList.get(pos).getPostId(),Toast.LENGTH_LONG).show();
                     Intent intent=new Intent(mContext, RentView.class);
                     mContext.startActivity(intent);
 

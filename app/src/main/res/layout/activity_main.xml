@@ -118,6 +118,7 @@
             android:layout_weight="1">
 
             <LinearLayout
+                android:onClick="postAdv"
                 android:background="@drawable/dashboard_menu_layout_backgroud"
                 android:padding="10dp"
                 android:layout_width="match_parent"

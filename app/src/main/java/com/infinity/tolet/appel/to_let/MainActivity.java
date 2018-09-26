@@ -17,4 +17,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent=new Intent(MainActivity.this,FindRent.class);
         startActivity(intent);
     }
+
+    public void postAdv(View view) {
+        Intent intent=new Intent(MainActivity.this,AddPost.class);
+        startActivity(intent);
+
+    }
 }

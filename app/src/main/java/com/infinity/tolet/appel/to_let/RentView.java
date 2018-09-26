@@ -25,7 +25,6 @@ public class RentView extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
