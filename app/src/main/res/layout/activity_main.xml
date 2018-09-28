@@ -1,178 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navdrwaer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".MainActivity">
-
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="206dp"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="83dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher" />
+        <android.support.v7.widget.CardView
+            android:id="@+id/findhome"
+            android:onClick="findhome"
+            android:layout_width="141dp"
+            android:layout_height="137dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="cursive"
-            android:text="To-Let"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="60sp"
-            android:textStyle="bold" />
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="7dp"
-            android:background="?android:attr/listDivider"
-            android:outlineAmbientShadowColor="@color/colorAccent" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:weightSum="2">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1">
-
-
-            <LinearLayout
-                android:onClick="findhome"
-                android:background="@drawable/dashboard_menu_layout_backgroud"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:padding="10dp"
-                android:orientation="vertical">
+                android:background="@drawable/dashboard_menu_layout_backgroud"
+                android:layout_height="match_parent">
 
                 <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@mipmap/ic_launcher" />
+                    android:id="@+id/imageView3"
+                    android:layout_width="76dp"
+                    android:layout_height="75dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/homeico" />
 
                 <TextView
-                    android:textColor="@color/black"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:text="Find Home"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
 
-            <LinearLayout
-                android:background="@drawable/dashboard_menu_layout_backgroud"
-                android:padding="10dp"
+        <android.support.v7.widget.CardView
+            android:id="@+id/customizesearch"
+            android:layout_width="137dp"
+            android:layout_height="141dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/findhome"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
                 <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@mipmap/ic_launcher" />
+                    android:id="@+id/imageView4"
+                    android:layout_width="76dp"
+                    android:layout_height="75dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/searchico" />
 
                 <TextView
-                    android:textColor="@color/black"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:text="Customize Search"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
 
-        </LinearLayout>
+        <android.support.v7.widget.CardView
+            android:layout_width="303dp"
+            android:layout_height="137dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/customizesearch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:onClick="postAdv"
-                android:background="@drawable/dashboard_menu_layout_backgroud"
-                android:padding="10dp"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
                 <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@mipmap/ic_launcher" />
+                    android:id="@+id/imageView5"
+                    android:layout_width="170dp"
+                    android:layout_height="79dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/mainico1" />
 
                 <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="To-Let"
                     android:textColor="@color/black"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="Post Adv."
-                    android:textSize="18sp" />
-            </LinearLayout>
+                    android:textSize="36sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
 
-            <LinearLayout
-                android:background="@drawable/dashboard_menu_layout_backgroud"
-                android:padding="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@mipmap/ic_launcher" />
-
-                <TextView
-                    android:textColor="@color/black"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="Profile"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 
-    </LinearLayout>
+    <android.support.design.widget.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:itemIconTint="@color/black"
+        app:menu="@menu/drware_menu"
+        app:headerLayout="@layout/drwaer_header"
+        android:layout_gravity="start"
 
-</LinearLayout>
+        >
+
+    </android.support.design.widget.NavigationView>
+
+</android.support.v4.widget.DrawerLayout>

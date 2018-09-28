@@ -3,17 +3,16 @@ package com.infinity.tolet.appel.to_let;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.system.Os;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -40,11 +39,10 @@ public class AddPost extends AppCompatActivity {
 
     String selectedMonth, selectedCategory;
 
-
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("/post/");
 
-    StorageReference storage= FirebaseStorage.getInstance().getReference("post_photos/");
+    StorageReference storage = FirebaseStorage.getInstance().getReference("post_photos/");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +83,7 @@ public class AddPost extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                Toast.makeText(AddPost.this, "Please Select an Itmem", Toast.LENGTH_LONG).show();
+                Toast.makeText(AddPost.this, "Please Select an Item", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -102,41 +100,77 @@ public class AddPost extends AppCompatActivity {
             }
         });
 
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clear();
+            }
+        });
+
         //Submit button onClick Event Listener
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String key = myRef.push().getKey();
-                myRef.child(key).child("key").setValue(key);
-                myRef.child(key).child("month").setValue(selectedMonth);
-                myRef.child(key).child("address").setValue(address.getText().toString());
-                myRef.child(key).child("category").setValue(selectedCategory);
-                myRef.child(key).child("rentprice").setValue(rentprice.getText().toString());
-                myRef.child(key).child("bedroom").setValue(bedroom.getText().toString());
-                myRef.child(key).child("bathroom").setValue(bathroom.getText().toString());
-                myRef.child(key).child("drawing").setValue(drwaing.getText().toString());
-                myRef.child(key).child("dinning").setValue(dinning.getText().toString());
-                myRef.child(key).child("waterbill").setValue(waterbill.getText().toString());
-                myRef.child(key).child("gasbill").setValue(gasbill.getText().toString());
-                myRef.child(key).child("posttime").setValue(new SimpleDateFormat("dd-M-yy", Locale.getDefault()).format(new Date()).toString());
+                if (TextUtils.isEmpty(rentprice.getText().toString())) {
+                    rentprice.setError("Please Fill up the form");
+                    return;
+                } else if (TextUtils.isEmpty(address.getText().toString())) {
+                    address.setError("Please Fill up the form");
+                    return;
+                } else if (selectedImage == null) {
+                    Toast.makeText(AddPost.this, "Select your house picture", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
 
-                storage.child(key).putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Uri downloadUrl = taskSnapshot.getUploadSessionUri();
-                        Toast.makeText(AddPost.this,""+downloadUrl,Toast.LENGTH_LONG).show();
-                    }
-                })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception exception) {
-                              Toast.makeText(AddPost.this,exception.getMessage(),Toast.LENGTH_LONG).show();
-                            }
-                        });
+                    final String key = myRef.push().getKey();
+                    myRef.child(key).child("key").setValue(key);
+                    myRef.child(key).child("month").setValue(selectedMonth);
+                    myRef.child(key).child("address").setValue(address.getText().toString());
+                    myRef.child(key).child("category").setValue(selectedCategory);
+                    myRef.child(key).child("rentprice").setValue(rentprice.getText().toString());
+                    myRef.child(key).child("bedroom").setValue(bedroom.getText().toString());
+                    myRef.child(key).child("bathroom").setValue(bathroom.getText().toString());
+                    myRef.child(key).child("drawing").setValue(drwaing.getText().toString());
+                    myRef.child(key).child("dinning").setValue(dinning.getText().toString());
+                    myRef.child(key).child("waterbill").setValue(waterbill.getText().toString());
+                    myRef.child(key).child("gasbill").setValue(gasbill.getText().toString());
+                    myRef.child(key).child("posttime").setValue(new SimpleDateFormat("dd-M-yy", Locale.getDefault()).format(new Date()).toString());
 
+                    storage.child(key).putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Uri downloadUrl = taskSnapshot.getUploadSessionUri();
+                            myRef.child(key).child("imagelink").setValue(downloadUrl);
+                            Toast.makeText(AddPost.this, "" + downloadUrl, Toast.LENGTH_LONG).show();
+                        }
+                    })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    Toast.makeText(AddPost.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+
+
+                }
+                clear();
             }
         });
+    }
+
+    public void clear() {
+        selectedImage = null;
+        Picasso.get().load(selectedImage).into(image1);
+        rentprice.setText("");
+        address.setText("");
+        bedroom.setText("");
+        bathroom.setText("");
+        dinning.setText("");
+        drwaing.setText("");
+        waterbill.setText("");
+        gasbill.setText("");
+        others.setText("");
     }
 
     //Start Activity result for image loading
@@ -148,26 +182,31 @@ public class AddPost extends AppCompatActivity {
         startActivityForResult(i, reqCode);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     //onActivity Result for Image load
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
             selectedImage = data.getData();
-            Picasso.get().load(selectedImage).resize(500,400).into(image1);
+            Picasso.get().load(selectedImage).resize(500, 400).into(image1);
         }
 
         if (requestCode == 2 && resultCode == RESULT_OK && null != data) {
             selectedImage = data.getData();
-            Picasso.get().load(selectedImage).resize(500,400).into(image2);
+            Picasso.get().load(selectedImage).resize(500, 400).into(image2);
         }
         if (requestCode == 3 && resultCode == RESULT_OK && null != data) {
             selectedImage = data.getData();
-            Picasso.get().load(selectedImage).resize(500,400).into(image3);
+            Picasso.get().load(selectedImage).resize(500, 400).into(image3);
         }
         if (requestCode == 4 && resultCode == RESULT_OK && null != data) {
             selectedImage = data.getData();
-            Picasso.get().load(selectedImage).resize(500,400).into(image4);
+            Picasso.get().load(selectedImage).resize(500, 400).into(image4);
         }
     }
     //-------------------------------------------

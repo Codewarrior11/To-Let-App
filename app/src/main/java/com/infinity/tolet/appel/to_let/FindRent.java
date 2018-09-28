@@ -58,4 +58,9 @@ public class FindRent extends AppCompatActivity {
 //        list.add(new item("6",R.drawable.ic_launcher_background,"Bappy","Single","Uttara,Ajompur","01-Oct-18",12000));
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }
