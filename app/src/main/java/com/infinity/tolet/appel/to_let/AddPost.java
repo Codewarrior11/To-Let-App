@@ -56,6 +56,7 @@ public class AddPost extends AppCompatActivity {
         month = findViewById(R.id.month);
         category = findViewById(R.id.category);
         submit = findViewById(R.id.submitPostBtn);
+        cancel=findViewById(R.id.cancel);
         rentprice = findViewById(R.id.price);
         address = findViewById(R.id.address);
         bedroom = findViewById(R.id.bedroom);

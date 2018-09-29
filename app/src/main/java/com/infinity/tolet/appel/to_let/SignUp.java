@@ -119,9 +119,18 @@ public class SignUp extends AppCompatActivity {
                         storage.child(key).putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                Uri downloadUrl = taskSnapshot.getUploadSessionUri();
-                                myRef.child(key).child("imagelink").setValue(downloadUrl.toString());
-                                Toast.makeText(SignUp.this, "" + downloadUrl, Toast.LENGTH_LONG).show();
+                                storage.child(key).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        myRef.child(key).child("imagelink").setValue(uri.toString());
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+
+                                    }
+                                });
+                                //Toast.makeText(SignUp.this, "" + downloadUrl, Toast.LENGTH_LONG).show();
                             }
                         })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -130,7 +139,12 @@ public class SignUp extends AppCompatActivity {
                                         Toast.makeText(SignUp.this, exception.getMessage(), Toast.LENGTH_LONG).show();
                                     }
                                 });
-                        Toast.makeText(SignUp.this, "Registration Success" + authResult.getUser().getUid(), Toast.LENGTH_LONG).show();
+
+
+                        Toast.makeText(SignUp.this, "Registration Success", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(SignUp.this, LoginActivity.class);
+                        startActivity(intent);
+
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
