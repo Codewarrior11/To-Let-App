@@ -34,6 +34,7 @@ public class AddPost extends AppCompatActivity {
     Spinner month, category;
     Uri selectedImage = null;
     Button submit, cancel;
+    String key;
 
     EditText rentprice, address, bedroom, bathroom, drwaing, dinning, waterbill, gasbill, others;
 
@@ -123,7 +124,7 @@ public class AddPost extends AppCompatActivity {
                     return;
                 } else {
 
-                    final String key = myRef.push().getKey();
+                    key = myRef.push().getKey();
                     myRef.child(key).child("key").setValue(key);
                     myRef.child(key).child("month").setValue(selectedMonth);
                     myRef.child(key).child("address").setValue(address.getText().toString());
@@ -141,7 +142,7 @@ public class AddPost extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Uri downloadUrl = taskSnapshot.getUploadSessionUri();
-                            myRef.child(key).child("imagelink").setValue(downloadUrl);
+                            myRef.child(key).child("imagelink").setValue(downloadUrl.toString());
                             Toast.makeText(AddPost.this, "" + downloadUrl, Toast.LENGTH_LONG).show();
                         }
                     })

@@ -10,7 +10,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/drawer_pro_pic"
         android:layout_width="71dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
@@ -29,7 +29,7 @@
         android:layout_marginTop="8dp"
         android:text="Md Appel Mahmud Akib"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/drawer_pro_pic" />
 
     <TextView
         android:id="@+id/pro_email"

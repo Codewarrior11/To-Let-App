@@ -146,10 +146,41 @@
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
 
+        <Button
+            android:id="@+id/main_signup"
+            android:onClick="main_signup"
+            android:textSize="22sp"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:text="Sign Up"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/findhome" />
+
+        <Button
+            android:id="@+id/main_login"
+            android:onClick="main_login"
+            android:textSize="22sp"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Log In"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_signup" />
+
     </android.support.constraint.ConstraintLayout>
 
 
     <android.support.design.widget.NavigationView
+        android:id="@+id/nabar"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@color/white"
