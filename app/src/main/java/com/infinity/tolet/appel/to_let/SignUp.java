@@ -1,5 +1,6 @@
 package com.infinity.tolet.appel.to_let;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class SignUp extends AppCompatActivity {
     EditText reg_name, reg_email, reg_phone, reg_address, reg_pass, reg_retypepass;
     RadioGroup reg_gender, reg_type;
     RadioButton radioButton1, radioButton;
+    ProgressDialog progressDialog;
     Button reg_submit;
     ImageView reg_image;
     String gender, type;
@@ -104,6 +106,10 @@ public class SignUp extends AppCompatActivity {
 //                    reg_retypepass.setError("Password Doesn't match");
 //                    return;
 //                }
+                progressDialog = new ProgressDialog(SignUp.this);
+                progressDialog.setMessage("Please Wait. Creating your Account");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
                 mAuth.createUserWithEmailAndPassword(reg_email.getText().toString(), reg_retypepass.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
@@ -140,7 +146,7 @@ public class SignUp extends AppCompatActivity {
                                     }
                                 });
 
-
+                        progressDialog.dismiss();
                         Toast.makeText(SignUp.this, "Registration Success", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(SignUp.this, LoginActivity.class);
                         startActivity(intent);

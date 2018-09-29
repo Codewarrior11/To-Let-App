@@ -1,5 +1,6 @@
 package com.infinity.tolet.appel.to_let;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,14 +13,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -34,7 +38,9 @@ public class AddPost extends AppCompatActivity {
     Spinner month, category;
     Uri selectedImage = null;
     Button submit, cancel;
-    String key;
+    ProgressDialog progressDialog;
+    String key, pOwnerName, pOwnerImage, pOwnerPhone;
+    FirebaseAuth mAuth;
 
     EditText rentprice, address, bedroom, bathroom, drwaing, dinning, waterbill, gasbill, others;
 
@@ -42,6 +48,7 @@ public class AddPost extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("/post/");
+    DatabaseReference myRef2 = database.getReference("/UserInfo/");
 
     StorageReference storage = FirebaseStorage.getInstance().getReference("post_photos/");
 
@@ -56,7 +63,7 @@ public class AddPost extends AppCompatActivity {
         month = findViewById(R.id.month);
         category = findViewById(R.id.category);
         submit = findViewById(R.id.submitPostBtn);
-        cancel=findViewById(R.id.cancel);
+        cancel = findViewById(R.id.cancel);
         rentprice = findViewById(R.id.price);
         address = findViewById(R.id.address);
         bedroom = findViewById(R.id.bedroom);
@@ -66,6 +73,7 @@ public class AddPost extends AppCompatActivity {
         waterbill = findViewById(R.id.waterbill);
         gasbill = findViewById(R.id.gasbill);
         others = findViewById(R.id.others);
+        mAuth = FirebaseAuth.getInstance();
 
 //Array list for month and category spinner
         String[] monthlist = {"January", "February", "March", "April", "May", "Jun", "July", "August", "September", "October", "November", "December"};
@@ -125,8 +133,15 @@ public class AddPost extends AppCompatActivity {
                     return;
                 } else {
 
+                    progressDialog = new ProgressDialog(AddPost.this);
+                    progressDialog.setMessage("Please Wait.Post Uploading");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
                     key = myRef.push().getKey();
                     myRef.child(key).child("key").setValue(key);
+                    myRef.child(key).child("p_owner_name").setValue(pOwnerName);
+                    myRef.child(key).child("p_owner_phone").setValue(pOwnerPhone);
+                    myRef.child(key).child("p_owner_image").setValue(pOwnerImage);
                     myRef.child(key).child("month").setValue(selectedMonth);
                     myRef.child(key).child("address").setValue(address.getText().toString());
                     myRef.child(key).child("category").setValue(selectedCategory);
@@ -142,28 +157,48 @@ public class AddPost extends AppCompatActivity {
                     storage.child(key).putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Uri downloadUrl = taskSnapshot.getUploadSessionUri();
-                            myRef.child(key).child("imagelink").setValue(downloadUrl.toString());
-                            Toast.makeText(AddPost.this, "" + downloadUrl, Toast.LENGTH_LONG).show();
-                        }
-                    })
-                            .addOnFailureListener(new OnFailureListener() {
+                            storage.child(key).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
-                                public void onFailure(@NonNull Exception exception) {
-                                    Toast.makeText(AddPost.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                                public void onSuccess(Uri uri) {
+                                    myRef.child(key).child("imagelink").setValue(uri.toString());
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AddPost.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AddPost.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             });
+                            progressDialog.dismiss();
+                            Toast.makeText(AddPost.this, "Your post Successfully uploaded", Toast.LENGTH_LONG).show();
+                            clear();
+                            Intent intent = new Intent(AddPost.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            Toast.makeText(AddPost.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
 
 
                 }
-                clear();
+
+
             }
         });
     }
 
     public void clear() {
         selectedImage = null;
-        Picasso.get().load(selectedImage).into(image1);
+        //Picasso.get().load(selectedImage).into(image1);
         rentprice.setText("");
         address.setText("");
         bedroom.setText("");
@@ -187,6 +222,24 @@ public class AddPost extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        myRef2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                pOwnerName = dataSnapshot.child(mAuth.getUid()).child("name").getValue().toString();
+                pOwnerPhone = dataSnapshot.child(mAuth.getUid()).child("phone").getValue().toString();
+                pOwnerImage = dataSnapshot.child(mAuth.getUid()).child("imagelink").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     //onActivity Result for Image load

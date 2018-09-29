@@ -2,7 +2,7 @@ package com.infinity.tolet.appel.to_let.findview.models;
 
 public class item {
 
-    int pro_pic;
+    String pro_pic;
     String name;
     String type;
     String address;
@@ -10,7 +10,7 @@ public class item {
     String postId;
     int price;
 
-    public item(String postId, int pro_pic, String name, String type, String address, String month, int price) {
+    public item(String postId, String pro_pic, String name, String type, String address, String month, int price) {
         this.pro_pic = pro_pic;
         this.name = name;
         this.type = type;
@@ -27,7 +27,7 @@ public class item {
         this.postId = postId;
     }
 
-    public int getPro_pic() {
+    public String getPro_pic() {
         return pro_pic;
     }
 
@@ -51,7 +51,7 @@ public class item {
         return price;
     }
 
-    public void setPro_pic(int pro_pic) {
+    public void setPro_pic(String pro_pic) {
         this.pro_pic = pro_pic;
     }
 

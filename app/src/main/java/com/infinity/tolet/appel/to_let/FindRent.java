@@ -1,5 +1,6 @@
 package com.infinity.tolet.appel.to_let;
 
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class FindRent extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("/post/");
     List<item> list=new ArrayList<>();
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,10 @@ public class FindRent extends AppCompatActivity {
         setContentView(R.layout.activity_find_rent);
 
         final RecyclerView rv=findViewById(R.id.recycler_view);
+        progressDialog=new ProgressDialog(FindRent.this);
+        progressDialog.setMessage("Content Loading .Please Wait.....");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -36,12 +42,14 @@ public class FindRent extends AppCompatActivity {
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()) {
                     //dataSnapshot.getChildren().iterator().next().child("name");
                     //Toast.makeText(FindRent.this,"Value: "+snapshot.child("address").getValue(),Toast.LENGTH_LONG).show();
-                    list.add(new item(snapshot.child("key").getValue().toString(),R.drawable.ic_launcher_background,"Appel Mahmud Akib","Single","Uttara,Ajompur","01-Oct-18",12000));
+                    list.add(new item(snapshot.child("key").getValue().toString(),snapshot.child("p_owner_image").getValue().toString(),
+                            snapshot.child("p_owner_name").getValue().toString(),snapshot.child("category").getValue().toString(),snapshot.child("address").getValue().toString(),snapshot.child("month").getValue().toString(),Integer.parseInt(snapshot.child("rentprice").getValue().toString())));
 
                 }
                 Adapter adapter=new Adapter(FindRent.this,list);
                 rv.setAdapter(adapter);
                 rv.setLayoutManager(new LinearLayoutManager(FindRent.this));
+                progressDialog.dismiss();
             }
 
             @Override

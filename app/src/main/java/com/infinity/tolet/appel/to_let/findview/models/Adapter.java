@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.infinity.tolet.appel.to_let.R;
 import com.infinity.tolet.appel.to_let.RentView;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -48,12 +49,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.myViewHolder> {
 
     @Override
     public void onBindViewHolder(Adapter.myViewHolder holder, int position) {
+        Picasso.get().load(itemList.get(position).pro_pic).into(holder.profile_pic);
 
-        holder.profile_pic.setImageResource(itemList.get(position).getPro_pic());
+        //holder.profile_pic.setImageResource(itemList.get(position).getPro_pic());
         holder.pname.setText(itemList.get(position).getName());
-        holder.paddress.setText(itemList.get(position).getAddress());
+        holder.paddress.setText("Address : "+itemList.get(position).getAddress());
         holder.type.setText(itemList.get(position).getType());
-        holder.month.setText(itemList.get(position).getMonth());
+        holder.month.setText("From : "+itemList.get(position).getMonth());
         holder.price.setText(itemList.get(position).getPrice() + " Tk");
         //Toast.makeText(mContext,""+position,Toast.LENGTH_LONG).show();
 
