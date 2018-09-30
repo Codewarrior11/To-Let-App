@@ -69,7 +69,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/rent_month"
+                        android:id="@+id/rent_month1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
@@ -122,7 +122,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/rent_address1"
                         android:layout_width="231dp"
                         android:layout_height="54dp"
                         android:layout_marginBottom="8dp"
@@ -160,7 +160,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/other_details"
                         android:layout_width="306dp"
                         android:layout_height="145dp"
                         android:layout_marginTop="4dp"

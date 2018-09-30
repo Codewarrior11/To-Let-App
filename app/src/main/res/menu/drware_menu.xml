@@ -9,6 +9,7 @@
     <item
         android:id="@+id/addpost"
         android:title="Add Post"
+        android:icon="@drawable/addpost"
         >
     </item>
 
