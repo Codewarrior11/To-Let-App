@@ -59,11 +59,11 @@ public class RentView extends AppCompatActivity {
 
                 rentType.setText(dataSnapshot.child("category").getValue().toString());
                 rentPrice.setText(dataSnapshot.child("rentprice").getValue().toString());
-                rentMonth.setText(dataSnapshot.child("month").getValue().toString());
+                rentMonth.setText("From: "+dataSnapshot.child("month").getValue().toString());
                 rentAddress.setText(dataSnapshot.child("address").getValue().toString());
                 otherDetails.setText("Bedroom: "+dataSnapshot.child("bedroom").getValue().toString()+"\n"+"Bathroom: "+dataSnapshot.child("bathroom").getValue().toString()+"\n"
                 +"Drawing Room: "+dataSnapshot.child("drawing").getValue().toString()+"\n"+"Dinning Space: "+dataSnapshot.child("dinning").getValue().toString()+"\n"
-                +"Water Bill"+dataSnapshot.child("waterbill").getValue().toString()+"\n"+"Gas Bill"+dataSnapshot.child("gasbill").getValue().toString()+"\n");
+                +"Water Bill: "+dataSnapshot.child("waterbill: ").getValue().toString()+"\n"+"Gas Bill"+dataSnapshot.child("gasbill: ").getValue().toString()+"\n");
                 Picasso.get().load(dataSnapshot.child("imagelink").getValue().toString()).into(rentImage);
                 //String value=dataSnapshot.getValue(String.class);
                 //Toast.makeText(RentView.this,value,Toast.LENGTH_LONG).show();
