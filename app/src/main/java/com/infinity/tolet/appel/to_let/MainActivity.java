@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     View view;
     String id,type;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("/UserInfo/");
+    DatabaseReference myRef = database.getReference("UserInfo/");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     type=dataSnapshot.child(id).child("reg_type").getValue().toString();
                     pro_name.setText(dataSnapshot.child(id).child("name").getValue().toString());
-                    pro_emaill.setText(mAuth.getCurrentUser().getEmail().toString());
+                    pro_emaill.setText(mAuth.getCurrentUser().getEmail());
                     Picasso.get().load(dataSnapshot.child(id).child("imagelink").getValue().toString()).into(pro_pic);
                 }
 

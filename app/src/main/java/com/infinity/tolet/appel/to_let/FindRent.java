@@ -21,7 +21,7 @@ import java.util.List;
 
 public class FindRent extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("/post/");
+    DatabaseReference myRef = database.getReference("post/");
     List<item> list=new ArrayList<>();
     ProgressDialog progressDialog;
 
@@ -33,7 +33,7 @@ public class FindRent extends AppCompatActivity {
         final RecyclerView rv=findViewById(R.id.recycler_view);
         progressDialog=new ProgressDialog(FindRent.this);
         progressDialog.setMessage("Content Loading .Please Wait.....");
-        progressDialog.setCancelable(false);
+        progressDialog.setCancelable(true);
         progressDialog.show();
 
         myRef.addValueEventListener(new ValueEventListener() {

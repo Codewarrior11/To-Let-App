@@ -108,7 +108,7 @@ public class SignUp extends AppCompatActivity {
 //                }
                 progressDialog = new ProgressDialog(SignUp.this);
                 progressDialog.setMessage("Please Wait. Creating your Account");
-                progressDialog.setCancelable(false);
+                progressDialog.setCancelable(true);
                 progressDialog.show();
                 mAuth.createUserWithEmailAndPassword(reg_email.getText().toString(), reg_retypepass.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
@@ -148,7 +148,7 @@ public class SignUp extends AppCompatActivity {
 
                         progressDialog.dismiss();
                         Toast.makeText(SignUp.this, "Registration Success", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(SignUp.this, LoginActivity.class);
+                        Intent intent = new Intent(SignUp.this, MainActivity.class);
                         startActivity(intent);
 
                     }

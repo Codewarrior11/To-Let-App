@@ -37,7 +37,7 @@ public class RentView extends AppCompatActivity {
         rentImage=findViewById(R.id.rent_image);
         progressDialog=new ProgressDialog(RentView.this);
         progressDialog.setMessage("Content Loading.......");
-        progressDialog.setCancelable(false);
+        progressDialog.setCancelable(true);
         progressDialog.show();
 
         postId=getIntent().getStringExtra("post_id");
